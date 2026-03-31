@@ -2,6 +2,7 @@ package edu.kis.powp.jobs2d.features;
 
 import edu.kis.powp.appbase.Application;
 import edu.kis.powp.jobs2d.Job2dDriver;
+import edu.kis.powp.jobs2d.drivers.DriverChangeObserver;
 import edu.kis.powp.jobs2d.drivers.DriverManager;
 import edu.kis.powp.jobs2d.drivers.SelectDriverMenuOptionListener;
 
@@ -22,6 +23,9 @@ public class DriverFeature {
     public static void setupDriverPlugin(Application application) {
         app = application;
         app.addComponentMenu(DriverFeature.class, "Drivers");
+        DriverChangeObserver driverChangeObserver = new DriverChangeObserver();
+        driverManager.getChangePublisher().addSubscriber(driverChangeObserver);
+        updateDriverInfo();
     }
 
     /**
