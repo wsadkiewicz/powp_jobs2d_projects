@@ -13,12 +13,14 @@ import edu.kis.powp.jobs2d.Job2dDriver;
 public class CompoundCommand implements ICompoundCommand {
 
 	private List<DriverCommand> commands;
+	private String name;
 
 	/**
 	 * Creates an empty compound command.
 	 */
 	public CompoundCommand() {
 		this.commands = new ArrayList<>();
+		this.name = null;
 	}
 
 	/**
@@ -28,6 +30,18 @@ public class CompoundCommand implements ICompoundCommand {
 	 */
 	public CompoundCommand(List<DriverCommand> commands) {
 		this.commands = new ArrayList<>(commands);
+		this.name = null;
+	}
+
+	/**
+	 * Creates a compound command with initial commands and a name.
+	 *
+	 * @param commands initial list of commands
+	 * @param name     name of the compound command
+	 */
+	public CompoundCommand(List<DriverCommand> commands, String name) {
+		this.commands = new ArrayList<>(commands);
+		this.name = name;
 	}
 
 	/**
@@ -66,6 +80,24 @@ public class CompoundCommand implements ICompoundCommand {
 	}
 
 	/**
+	 * Get the name of this compound command.
+	 *
+	 * @return name of the command, or null if not set
+	 */
+	public String getName() {
+		return name;
+	}
+
+	/**
+	 * Set the name of this compound command.
+	 *
+	 * @param name the name to set
+	 */
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	/**
 	 * Execute all commands in sequence on the given driver.
 	 *
 	 * @param driver the driver to execute commands on
@@ -89,6 +121,9 @@ public class CompoundCommand implements ICompoundCommand {
 
 	@Override
 	public String toString() {
+		if (name != null) {
+			return name + " [" + commands.size() + " commands]";
+		}
 		return "CompoundCommand [" + commands.size() + " commands]";
 	}
 }
