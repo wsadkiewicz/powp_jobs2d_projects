@@ -9,19 +9,18 @@ import edu.kis.powp.jobs2d.LoggerDriver;
  */
 public class DriverManager {
 
-    private Job2dDriver currentDriver = new LoggerDriver();
+    private final RecordingDriver recordingDriver = new RecordingDriver(new LoggerDriver());
 
-    /**
-     * @param driver Set the driver as current.
-     */
     public synchronized void setCurrentDriver(Job2dDriver driver) {
-        currentDriver = driver;
+        recordingDriver.setTarget(driver);
     }
 
-    /**
-     * @return Current driver.
-     */
     public synchronized Job2dDriver getCurrentDriver() {
-        return currentDriver;
+        return recordingDriver;
     }
+
+    public synchronized RecordingDriver getRecordingDriver() {
+        return recordingDriver;
+    }
+
 }
