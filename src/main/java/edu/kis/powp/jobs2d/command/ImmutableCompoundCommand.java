@@ -10,6 +10,11 @@ public class ImmutableCompoundCommand implements ICompoundCommand {
     private List<DriverCommand> commands;
     private String name;
 
+    /**
+     * Create immutable compound command with sequence of commands.
+     * @param name      name of the compound command, optional
+     * @param commands  list of the commands
+     */
     public ImmutableCompoundCommand(@Nullable String name, List<DriverCommand> commands) {
         if (name == null) {
             this.name = "ImmutableCompoundCommand";
