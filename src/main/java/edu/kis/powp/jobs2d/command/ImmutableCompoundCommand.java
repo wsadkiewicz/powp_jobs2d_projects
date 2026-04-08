@@ -19,6 +19,10 @@ public class ImmutableCompoundCommand implements ICompoundCommand {
         this.commands = commands;
     }
 
+    public String getName() {
+        return name;
+    }
+
     @Override
     public Iterator<DriverCommand> iterator() {
         return null;
