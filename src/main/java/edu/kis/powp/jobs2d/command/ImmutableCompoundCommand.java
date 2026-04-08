@@ -35,4 +35,12 @@ public class ImmutableCompoundCommand implements ICompoundCommand {
             command.execute(driver);
         }
     }
+
+    @Override
+    public String toString() {
+        if(name != null) {
+            return name;
+        }
+        return "ImmutableCompoundCommand";
+    }
 }
