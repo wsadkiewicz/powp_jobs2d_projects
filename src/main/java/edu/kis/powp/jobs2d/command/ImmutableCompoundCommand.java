@@ -23,6 +23,10 @@ public class ImmutableCompoundCommand implements ICompoundCommand {
         return name;
     }
 
+    public int getCommandCount() {
+        return commands.size();
+    }
+
     @Override
     public Iterator<DriverCommand> iterator() {
         return null;
