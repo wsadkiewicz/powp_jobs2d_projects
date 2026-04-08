@@ -26,6 +26,7 @@ import edu.kis.powp.jobs2d.events.SelectClearPanelOptionListener;
 import edu.kis.powp.jobs2d.features.RecordingFeature;
 import edu.kis.powp.jobs2d.events.SelectToggleRecordingOptionListener;
 import edu.kis.powp.jobs2d.events.SelectClearRecordingOptionListener;
+import edu.kis.powp.jobs2d.features.FeaturesManager;
 
 public class TestJobs2dApp {
     private final static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -147,10 +148,17 @@ public class TestJobs2dApp {
         EventQueue.invokeLater(new Runnable() {
             public void run() {
                 Application app = new Application("Jobs 2D");
-                DrawerFeature.setupDrawerPlugin(app);
-                CommandsFeature.setupCommandManager();
 
-                DriverFeature.setupDriverPlugin(app);
+                // Przykład użycia automatycznego zarządzania funkcjami (features management)
+                // Zarejestruj funkcje, które mają być automatycznie skonfigurowane
+                FeaturesManager.registerFeature(new DrawerFeature());
+                FeaturesManager.registerFeature(new CommandsFeature());
+                FeaturesManager.registerFeature(new DriverFeature());
+
+                // Automatycznie skonfiguruj wszystkie zarejestrowane funkcje
+                // To zastępuje ręczne wywołania setup dla każdej funkcji
+                FeaturesManager.setupAllFeatures(app);
+
                 setupDrivers(app);
                 RecordingFeature.setup(DriverFeature.getDriverManager());
                 setupPresetTests(app);
