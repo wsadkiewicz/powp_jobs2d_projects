@@ -16,23 +16,23 @@ public class CompoundCommandFactory {
      * @return TopSecretCommand as CompoundCommand
      */
     public static CompoundCommand createTopSecretCommand() {
-        List<DriverCommand> commands = new ArrayList<>();
-        commands.add(new SetPositionCommand(-20, -50));
-        commands.add(new OperateToCommand(-20, -50));
-        commands.add(new SetPositionCommand(-20, -40));
-        commands.add(new OperateToCommand(-20, 50));
-        commands.add(new SetPositionCommand(0, -50));
-        commands.add(new OperateToCommand(0, -50));
-        commands.add(new SetPositionCommand(0, -40));
-        commands.add(new OperateToCommand(0, 50));
-        commands.add(new SetPositionCommand(70, -50));
-        commands.add(new OperateToCommand(20, -50));
-        commands.add(new OperateToCommand(20, 0));
-        commands.add(new OperateToCommand(70, 0));
-        commands.add(new OperateToCommand(70, 50));
-        commands.add(new OperateToCommand(20, 50));
-
-        return new CompoundCommand(commands, "TopSecretCommand");
+        SimpleComplexCommandBuilder builder = new SimpleComplexCommandBuilder();
+        return builder.setPosition(-20, -50)
+            .operateTo(-20, -50)
+            .setPosition(-20, -40)
+            .operateTo(-20, 50)
+            .setPosition(0, -50)
+            .operateTo(0, -50)
+            .setPosition(0, -40)
+            .operateTo(0, 50)
+            .setPosition(70, -50)
+            .operateTo(20, -50)
+            .operateTo(20, 0)
+            .operateTo(70, 0)
+            .operateTo(70, 50)
+            .operateTo(20, 50)
+            .name("TopSecretCommand")
+            .build();
     }
 	
     /**
