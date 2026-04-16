@@ -22,7 +22,7 @@ public class CanvasFeature {
         }
     }
 
-    private static void setCanvas(CanvasFormat format) {
+    public static void setCanvas(CanvasFormat format) {
         PathIterator segments = format.getShape().getPathIterator(null);
         double[] coordinates = new double[2];
 
