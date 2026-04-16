@@ -52,7 +52,7 @@ public class CanvasFeature {
     }
 
     private static void drawLine(double x0, double y0, double x1, double y1) {
-        ILine line = LineFactory.getBasicLine();
+        ILine line = LineFactory.getDottedLine();
 
         line.setStartCoordinates((int) x0, (int) y0);
         line.setEndCoordinates((int) x1, (int) y1);
