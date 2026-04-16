@@ -10,6 +10,8 @@ import edu.kis.powp.jobs2d.canvas.TriangleFormat;
 import java.awt.geom.PathIterator;
 
 public class CanvasFeature {
+    private static CanvasFormat currentFormat;
+
     public static void setupCanvasPlugin(Application application) {
         application.addComponentMenu(CanvasFeature.class, "Canvas", 0);
 
@@ -23,6 +25,10 @@ public class CanvasFeature {
     }
 
     public static void setCanvas(CanvasFormat format) {
+        if (format == currentFormat) {
+            return;
+        }
+
         DrawerFeature.getDrawerController().clearPanel();
 
         PathIterator segments = format.getShape().getPathIterator(null);
@@ -51,10 +57,12 @@ public class CanvasFeature {
 
             segments.next();
         }
+
+        currentFormat = format;
     }
 
     private static void drawLine(double x0, double y0, double x1, double y1) {
-        ILine line = LineFactory.getDottedLine();
+        ILine line = LineFactory.getSpecialLine();
 
         line.setStartCoordinates((int) x0, (int) y0);
         line.setEndCoordinates((int) x1, (int) y1);
