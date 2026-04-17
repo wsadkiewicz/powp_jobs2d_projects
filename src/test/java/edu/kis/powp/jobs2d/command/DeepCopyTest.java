@@ -1,27 +1,43 @@
 package edu.kis.powp.jobs2d.command;
 
+import java.util.ArrayList;
 import java.util.Arrays;
 
 public class DeepCopyTest {
 
     public static void main(String[] args) {
-        CompoundCommand original = new CompoundCommand(
-                Arrays.asList(new SetPositionCommand(1, 2), new OperateToCommand(3, 4)), "cmd");
 
-        CompoundCommand copy = (CompoundCommand) original.deepCopy();
+        CompoundCommand innerOriginal = new CompoundCommand(
+                new ArrayList<>(Arrays.asList(new SetPositionCommand(1, 1))), "inner");
 
-        if (original == copy)
-            throw new AssertionError("compound must be a new object");
+        CompoundCommand outerOriginal = new CompoundCommand(
+                new ArrayList<>(Arrays.asList(innerOriginal, new OperateToCommand(2, 2))), "outer");
 
-        DriverCommand origChild = original.iterator().next();
-        DriverCommand copyChild = copy.iterator().next();
-        if (origChild == copyChild)
-            throw new AssertionError("children must be new objects");
+        CompoundCommand outerCopy = (CompoundCommand) outerOriginal.deepCopy();
 
-        original.addCommand(new OperateToCommand(99, 99));
-        if (copy.getCommandCount() != 2)
-            throw new AssertionError("copy must not be affected by changes to original");
+        if (outerOriginal == outerCopy)
+            throw new AssertionError("Outer compound must be a new object");
 
-        System.out.println("DeepCopyTest PASSED.");
+        if (outerOriginal.getCommandCount() != outerCopy.getCommandCount())
+            throw new AssertionError("Copy must have the same number of commands");
+
+        CompoundCommand innerCopy = (CompoundCommand) outerCopy.iterator().next();
+
+        if (innerOriginal == innerCopy)
+            throw new AssertionError("Inner compound must be a new object");
+
+        DriverCommand innerChildOriginal = innerOriginal.iterator().next();
+        DriverCommand innerChildCopy = innerCopy.iterator().next();
+
+        if (innerChildOriginal == innerChildCopy)
+            throw new AssertionError("Commands inside the inner nested compound must be new objects");
+
+        innerOriginal.addCommand(new OperateToCommand(3, 3));
+
+        if (innerCopy.getCommandCount() != 1) {
+            throw new AssertionError("Nested copy was affected by changes to the original nested structure");
+        }
+
+        System.out.println("TEST PASSED");
     }
 }
