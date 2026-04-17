@@ -20,6 +20,7 @@ import edu.kis.powp.jobs2d.drivers.transformations.*;
 import edu.kis.powp.jobs2d.events.*;
 import edu.kis.powp.jobs2d.features.CommandsFeature;
 import edu.kis.powp.jobs2d.features.DrawerFeature;
+import edu.kis.powp.jobs2d.canvas.CanvasPresets;
 import edu.kis.powp.jobs2d.features.DriverFeature;
 import edu.kis.powp.jobs2d.events.SelectLoadRecordedMacroOptionListener;
 import edu.kis.powp.jobs2d.events.SelectClearPanelOptionListener;
@@ -61,6 +62,13 @@ public class TestJobs2dApp {
         application.addTest("Clear panel", new SelectClearPanelOptionListener());
         application.addTest("Run command", new SelectRunCurrentCommandOptionListener(DriverFeature.getDriverManager()));
         application.addTest("Count current command", new SelectCountCommandsOptionListener());
+
+        application.addTest("Check current command bounds (A4)",
+                new SelectCheckCanvasBoundsOptionListener(CanvasPresets.a4()));
+        application.addTest("Check current command bounds (B3)",
+                new SelectCheckCanvasBoundsOptionListener(CanvasPresets.b3()));
+        application.addTest("Check current command bounds (Circle)",
+                new SelectCheckCanvasBoundsOptionListener(CanvasPresets.circle()));
 
         RecordingDriver rec = RecordingFeature.getRecordingDriver();
         boolean initial = rec.isRecordingEnabled();
