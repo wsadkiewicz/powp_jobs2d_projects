@@ -20,7 +20,7 @@ public class SelectTransformCommandOptionListener implements ActionListener {
 
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-    private final CoordinateTransformer transformer;
+    private final CommandTransformVisitor visitor;
     private final String transformationName;
 
     /**
@@ -30,7 +30,7 @@ public class SelectTransformCommandOptionListener implements ActionListener {
      *                           used for logging (e.g. "Scale 2x").
      */
     public SelectTransformCommandOptionListener(CoordinateTransformer transformer, String transformationName) {
-        this.transformer = transformer;
+        this.visitor = new CommandTransformVisitor(transformer);
         this.transformationName = transformationName;
     }
 
@@ -45,7 +45,6 @@ public class SelectTransformCommandOptionListener implements ActionListener {
 
         String beforeName = manager.getCurrentCommandString();
 
-        CommandTransformVisitor visitor = new CommandTransformVisitor(transformer);
         current.accept(visitor);
         DriverCommand transformed = visitor.getTransformedCommand();
 

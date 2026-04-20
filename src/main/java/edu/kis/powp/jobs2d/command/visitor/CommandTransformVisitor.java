@@ -20,7 +20,7 @@ import edu.kis.powp.jobs2d.drivers.transformations.CoordinateTransformer;
  * recursively so the resulting tree has the same shape as the input.
  * <p>
  * After a traversal, {@link #getTransformedCommand()} returns the
- * resulting command. The visitor can be reused by calling {@link #reset()}.
+ * resulting command.
  *
  * <pre>
  * CoordinateTransformer t = new ScaleTransformer(2.0, 2.0);
@@ -77,16 +77,5 @@ public class CommandTransformVisitor implements ICommandVisitor {
      */
     public DriverCommand getTransformedCommand() {
         return result;
-    }
-
-    /**
-     * Reset the visitor so it can be reused for another traversal.
-     */
-    public void reset() {
-        result = null;
-    }
-
-    public CoordinateTransformer getTransformer() {
-        return transformer;
     }
 }
