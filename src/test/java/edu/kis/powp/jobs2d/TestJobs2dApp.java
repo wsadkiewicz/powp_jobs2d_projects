@@ -18,16 +18,11 @@ import edu.kis.powp.jobs2d.drivers.logger.TrackingLoggerDriver;
 import edu.kis.powp.jobs2d.drivers.packet_composite.CompositeDriver;
 import edu.kis.powp.jobs2d.drivers.transformations.*;
 import edu.kis.powp.jobs2d.events.*;
-import edu.kis.powp.jobs2d.features.CommandsFeature;
-import edu.kis.powp.jobs2d.features.DrawerFeature;
-import edu.kis.powp.jobs2d.canvas.CanvasPresets;
-import edu.kis.powp.jobs2d.features.DriverFeature;
+import edu.kis.powp.jobs2d.features.*;
 import edu.kis.powp.jobs2d.events.SelectLoadRecordedMacroOptionListener;
 import edu.kis.powp.jobs2d.events.SelectClearPanelOptionListener;
-import edu.kis.powp.jobs2d.features.RecordingFeature;
 import edu.kis.powp.jobs2d.events.SelectToggleRecordingOptionListener;
 import edu.kis.powp.jobs2d.events.SelectClearRecordingOptionListener;
-import edu.kis.powp.jobs2d.features.FeaturesManager;
 
 public class TestJobs2dApp {
     private final static Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
@@ -62,13 +57,7 @@ public class TestJobs2dApp {
         application.addTest("Clear panel", new SelectClearPanelOptionListener());
         application.addTest("Run command", new SelectRunCurrentCommandOptionListener(DriverFeature.getDriverManager()));
         application.addTest("Count current command", new SelectCountCommandsOptionListener());
-
-        application.addTest("Check current command bounds (A4)",
-                new SelectCheckCanvasBoundsOptionListener(CanvasPresets.a4()));
-        application.addTest("Check current command bounds (B3)",
-                new SelectCheckCanvasBoundsOptionListener(CanvasPresets.b3()));
-        application.addTest("Check current command bounds (Circle)",
-                new SelectCheckCanvasBoundsOptionListener(CanvasPresets.circle()));
+        application.addTest("Check current command bounds", new SelectCheckCanvasBoundsOptionListener());
 
         RecordingDriver rec = RecordingFeature.getRecordingDriver();
         boolean initial = rec.isRecordingEnabled();
@@ -188,6 +177,7 @@ public class TestJobs2dApp {
                 FeaturesManager.registerFeature(new DrawerFeature());
                 FeaturesManager.registerFeature(new CommandsFeature());
                 FeaturesManager.registerFeature(new DriverFeature());
+                FeaturesManager.registerFeature(new CanvasFeature());
 
                 // Automatycznie skonfiguruj wszystkie zarejestrowane funkcje
                 // To zastępuje ręczne wywołania setup dla każdej funkcji

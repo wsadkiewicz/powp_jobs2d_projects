@@ -7,6 +7,7 @@ import java.util.logging.Logger;
 import edu.kis.powp.jobs2d.canvas.ICanvas;
 import edu.kis.powp.jobs2d.command.DriverCommand;
 import edu.kis.powp.jobs2d.command.visitor.CanvasBoundsCheckingVisitor;
+import edu.kis.powp.jobs2d.features.CanvasFeature;
 import edu.kis.powp.jobs2d.features.CommandsFeature;
 
 /**
@@ -18,28 +19,29 @@ public class SelectCheckCanvasBoundsOptionListener implements ActionListener {
 
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
 
-    private final ICanvas canvas;
-
-    public SelectCheckCanvasBoundsOptionListener(ICanvas canvas) {
-        this.canvas = canvas;
-    }
-
     @Override
     public void actionPerformed(ActionEvent e) {
+        ICanvas currentCanvas = CanvasFeature.getCanvas();
+
+        if (currentCanvas == null) {
+            logger.info("No canvas selected - cannot check bounds.");
+            return;
+        }
+
         DriverCommand command = CommandsFeature.getDriverCommandManager().getCurrentCommand();
         if (command == null) {
             logger.info("No command loaded - nothing to check.");
             return;
         }
 
-        CanvasBoundsCheckingVisitor visitor = new CanvasBoundsCheckingVisitor(canvas);
+        CanvasBoundsCheckingVisitor visitor = new CanvasBoundsCheckingVisitor(currentCanvas);
         command.accept(visitor);
 
         String commandName = CommandsFeature.getDriverCommandManager().getCurrentCommandString();
         if (!visitor.hasExceeded()) {
-            logger.info("Command '" + commandName + "' fits within canvas '" + canvas.getName() + "'.");
+            logger.info("Command '" + commandName + "' fits within canvas '" + currentCanvas.getName() + "'.");
         } else {
-            logger.info("Command '" + commandName + "' EXCEEDS canvas '" + canvas.getName() + "': "
+            logger.info("Command '" + commandName + "' EXCEEDS canvas '" + currentCanvas.getName() + "': "
                     + "SetPosition out-of-bounds=" + visitor.getExceedingSetPositionCount()
                     + ", OperateTo out-of-bounds=" + visitor.getExceedingOperateToCount()
                     + ", total=" + visitor.getTotalExceedingCount());

@@ -1,5 +1,8 @@
 package edu.kis.powp.jobs2d.canvas;
 
+import edu.kis.powp.jobs2d.command.ICompoundCommand;
+import edu.kis.powp.jobs2d.command.ShapeCommandFactory;
+
 /**
  * Circular canvas - example of a non-rectangular ("custom shape") canvas.
  * The drawable area is the disc of radius (radius - margin) centred at
@@ -34,6 +37,11 @@ public class CircleCanvas implements ICanvas {
         long dx = x - centerX;
         long dy = y - centerY;
         return dx * dx + dy * dy <= (long) effectiveRadius * effectiveRadius;
+    }
+
+    @Override
+    public ICompoundCommand toCommand() {
+        return ShapeCommandFactory.fromCircle(centerX, centerY, radius, margin);
     }
 
     @Override
