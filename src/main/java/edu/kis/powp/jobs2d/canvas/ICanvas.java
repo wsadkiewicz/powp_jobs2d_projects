@@ -1,5 +1,7 @@
 package edu.kis.powp.jobs2d.canvas;
 
+import edu.kis.powp.jobs2d.command.ICompoundCommand;
+
 /**
  * Represents a drawing area (canvas) with optional margin.
  * Implementations define the geometry of the drawable region.
@@ -15,6 +17,11 @@ public interface ICanvas {
      * @return true if the point is within bounds, false if it exceeds them
      */
     boolean contains(int x, int y);
+
+    /**
+     * @return CompoundCommand which draws the canvas guides
+     */
+    ICompoundCommand toCommand();
 
     /**
      * @return human-readable name of this canvas (e.g. "A4", "B3", "Circle r=200")
