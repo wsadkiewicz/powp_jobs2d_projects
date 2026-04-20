@@ -2,12 +2,13 @@ package edu.kis.powp.jobs2d.features;
 
 import edu.kis.legacy.drawer.shape.LineFactory;
 import edu.kis.powp.appbase.Application;
+import edu.kis.powp.jobs2d.canvas.ICanvas;
 import edu.kis.powp.jobs2d.canvas.PaperFormat;
 import edu.kis.powp.jobs2d.canvas.TriangleFormat;
 import edu.kis.powp.jobs2d.drivers.adapter.LineDriverAdapter;
 
 public class CanvasFeature implements IFeature {
-    private static CanvasFormat currentFormat;
+    private static ICanvas currentFormat;
 
     @Override
     public void setup(Application application) {
@@ -36,15 +37,15 @@ public class CanvasFeature implements IFeature {
         redrawCanvas(currentFormat, true);
     }
 
-    public static void setCanvas(CanvasFormat format) {
+    public static void setCanvas(ICanvas format) {
         redrawCanvas(format, false);
     }
 
-    public static CanvasFormat getCanvas() {
+    public static ICanvas getCanvas() {
         return currentFormat;
     }
 
-    private static void redrawCanvas(CanvasFormat format, boolean forceRedraw) {
+    private static void redrawCanvas(ICanvas format, boolean forceRedraw) {
         if (!forceRedraw && format == currentFormat) {
             return;
         }
