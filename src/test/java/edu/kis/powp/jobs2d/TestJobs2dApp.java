@@ -57,7 +57,17 @@ public class TestJobs2dApp {
         application.addTest("Clear panel", new SelectClearPanelOptionListener());
         application.addTest("Run command", new SelectRunCurrentCommandOptionListener(DriverFeature.getDriverManager()));
         application.addTest("Count current command", new SelectCountCommandsOptionListener());
+
         application.addTest("Check current command bounds", new SelectCheckCanvasBoundsOptionListener());
+        application.addTest("Transform current command: Scale 2x",
+                new SelectTransformCommandOptionListener(new ScaleTransformer(2.0, 2.0), "Scale 2x"));
+        application.addTest("Transform current command: Scale 0.5x",
+                new SelectTransformCommandOptionListener(new ScaleTransformer(0.5, 0.5), "Scale 0.5x"));
+        application.addTest("Transform current command: Rotate 45 degrees",
+                new SelectTransformCommandOptionListener(new RotateTransformer(45.0), "Rotate 45 degrees"));
+        application.addTest("Transform current command: Flip Y",
+                new SelectTransformCommandOptionListener(new FlipTransformer(false, true), "Flip Y"));
+        
 
         RecordingDriver rec = RecordingFeature.getRecordingDriver();
         boolean initial = rec.isRecordingEnabled();
