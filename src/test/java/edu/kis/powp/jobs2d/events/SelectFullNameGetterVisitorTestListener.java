@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 
 public class SelectFullNameGetterVisitorTestListener implements ActionListener {
     private static final Logger logger = Logger.getLogger(Logger.GLOBAL_LOGGER_NAME);
-    FullNameGetterVisitor visitor = null;
+    private FullNameGetterVisitor visitor = null;
 
     public SelectFullNameGetterVisitorTestListener(FullNameGetterVisitor fullNameGetterVisitor) {
         visitor = fullNameGetterVisitor;
